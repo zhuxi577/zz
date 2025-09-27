@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Bar Chart</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  .bar-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+  }
+  .bar {
+    background-color: blue;
+    width: 100%;
+    height: 0;
+    transition: height 0.3s;
+    text-align: center;
+    color: white;
+  }
+  .bar-value {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+</style>
+</head>
+<body>
+<h2>Interactive Bar Chart</h2>
+<div class="bar-chart">
+  <div>
+    <button onclick="vote('中国科技馆')">中国科技馆</button>
+    <div id="bar1" class="bar-container">
+      <div id="bar1-value" class="bar" style="height: 0%"></div>
+      <div class="bar-value">0</div>
+    </div>
+  </div>
+  <div>
+    <button onclick="vote('颐和园')">颐和园</button>
+    <div id="bar2" class="bar-container">
+      <div id="bar2-value" class="bar" style="height: 0%"></div>
+      <div class="bar-value">0</div>
+    </div>
+  </div>
+  <div>
+    <button onclick="vote('北京动物园')">北京动物园</button>
+    <div id="bar3" class="bar-container">
+      <div id="bar3-value" class="bar" style="height: 0%"></div>
+      <div class="bar-value">0</div>
+    </div>
+  </div>
+  <div>
+    <button onclick="vote('北京植物园')">北京植物园</button>
+    <div id="bar4" class="bar-container">
+      <div id="bar4-value" class="bar" style="height: 0%"></div>
+      <div class="bar-value">0</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const votes = {
+  '中国科技馆': 0,
+  '颐和园': 0,
+  '北京动物园': 0,
+  '北京植物园': 0
+};
+
+function vote(location) {
+  votes[location]++;
+  const barIds = Object.keys(votes);
+  const barId = `bar${barIds.indexOf(location) + 1}-value`;
+  const bar = document.getElementById(barId);
+  const value = document.querySelector(`#${barId} + .bar-value`);
+  bar.style.height = `${votes[location] * 10}px`; // 每个票数单位的高度为10px
+  value.innerText = votes[location];
+}
+
+</script>
+</body>
+</html>
